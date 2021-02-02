@@ -1,4 +1,5 @@
 // Competitive programming ready to use functions - Utkarsh Nanda LNMIIT
+//Add your own functions with proper comments :)
 #include <bits/stdc++.h>
 #define int long long
 #define mod 1000000007
