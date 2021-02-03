@@ -102,6 +102,16 @@ long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 
 	return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
 }
+int digitcount(int n) // O(1)
+{
+	// n shouldn't have following zeros
+	if (n == 0)
+		return 1;
+	else if (n < 0)
+		n *= -1;
+	int digits = floor(log10(n)) + 1;
+	return digits;
+}
 
 int32_t main()
 {
@@ -110,4 +120,5 @@ int32_t main()
 	cout << power(2, 100, 1000000007);
 	cout << "\n";
 	cout << nCr(5, 3, mod);
+	cout << "\n"<< digitcount(1000000);
 }
