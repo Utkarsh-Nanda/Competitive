@@ -120,5 +120,5 @@ int32_t main()
 	cout << power(2, 100, 1000000007);
 	cout << "\n";
 	cout << nCr(5, 3, mod);
-	cout << "\n"<< digitcount(1000000);
+	cout << "\n"<< digitcount(10);
 }
