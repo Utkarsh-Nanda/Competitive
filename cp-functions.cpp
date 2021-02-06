@@ -9,15 +9,11 @@ int prime[10000000];
 int factor[10000000];
 void sieve() // 0 means prime, -1 means non prime O(n) = nlog(n)
 {
-
 	memset(prime, 0, sizeof(prime)); // initializes all the values in array "prime" with 0
-
 	for (int p = 2; p * p <= range; p++)
 	{
-
 		if (prime[p] == 0)
 		{
-
 			for (int i = p * p; i <= range; i += p)
 				prime[i] = -1;
 		}
@@ -85,8 +81,8 @@ long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it
 	return res;
 }
 
-long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n)
-{
+long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
+{ // use in combination with modInverse funciton written just above
 	// If n<r, then nCr should return 0
 	if (n < r)
 		return 0;
@@ -112,13 +108,25 @@ int digitcount(int n) // O(1)
 	int digits = floor(log10(n)) + 1;
 	return digits;
 }
+string allCombinations() 
+{
+    static int i = 0;
+    bitset<17> c("00000000000000000");
+    bitset<17> d("11111111111111111");
+    c = i;     // this is the particular arrangement
+    d = c ^ d; // this is the opposite arrangement
+	string s = c.to_string();
+    i++;
+    return s;
+}
 
 int32_t main()
 {
-	sieve();
-	sieve_factor();
-	cout << power(2, 100, 1000000007);
-	cout << "\n";
-	cout << nCr(5, 3, mod);
-	cout << "\n"<< digitcount(10);
+	
+	for (int i = 0; i < 10; i++)
+	{
+		cout<<allCombinations()<<"\n";
+	}
+	
+	
 }
