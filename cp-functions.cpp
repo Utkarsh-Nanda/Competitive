@@ -6,7 +6,6 @@
 using namespace std;
 int range = 10000000;
 int prime[10000000];
-int factor[10000000];
 void sieve() // 0 means prime, -1 means non prime O(n) = nlog(n)
 {
 	memset(prime, 0, sizeof(prime)); // initializes all the values in array "prime" with 0
@@ -19,6 +18,7 @@ void sieve() // 0 means prime, -1 means non prime O(n) = nlog(n)
 		}
 	}
 }
+int factor[10000000];
 int sieve_factor() // numbers with only 1 or 2 factors are prime numbers O(n) = nlog(n)
 {
 	memset(factor, 0, sizeof(factor));
@@ -82,7 +82,7 @@ long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it
 }
 
 long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
-{ // use in combination with modInverse funciton written just above
+{										 // use in combination with modInverse funciton written just above
 	// If n<r, then nCr should return 0
 	if (n < r)
 		return 0;
@@ -108,25 +108,81 @@ int digitcount(int n) // O(1)
 	int digits = floor(log10(n)) + 1;
 	return digits;
 }
-string allCombinations() 
+string allCombinations() // O(1) but will have to be called 2^n times making it O(2^n)
+{						 // reminder : a bitset keeps only set values stored
+	static int i = 0;
+	bitset<25> c(i);
+	string s;
+	bitset<25> d("1111111111111111111111111");
+	c = i;	   // this is the particular arrangement
+	d = c ^ d; // xor operation of c with a string of 1's of proper length
+	s = c.to_string();
+	//	s = d.to_string(); // use this to return opposite
+	i++;
+	return s;
+}
+
+string Combinations(int r) // O(1) but will have to be called 2^n times making it O(2^n)
+{						   // reminder : a bitset keeps only set values stored
+						   // loop this nCr times to get all the answers
+	static int i = 0;
+	string s;
+	static bitset<5> c(0);
+	while (c.count() != r) // increment i till i has exactly r bits set
+	{
+		i++;
+		c = i;
+	}
+	s = c.to_string(); // this is the particular arrangement
+	i++;
+	c = i;
+	return s;
+}
+
+vector<string> allPerm;					 // global variable
+void permutation(string s, int k, int r) // O(n!*n)
 {
-    static int i = 0;
-    bitset<17> c("00000000000000000");
-    bitset<17> d("11111111111111111");
-    c = i;     // this is the particular arrangement
-    d = c ^ d; // this is the opposite arrangement
-	string s = c.to_string();
-    i++;
-    return s;
+	// start k with 0, r is 'r' in nPr, length of string is n of nPr
+	// use with allPerm vector provided at the top to store all permutations
+	static char result[10];
+	static int temp[10] = {0};
+	int i = 0;
+
+	if (k == r)
+	{
+		//  cout << result << "\n";
+		allPerm.push_back(result); // stores all the permutations
+	}
+	else
+	{
+		for (i = 0; s[i] != '\0'; i++)
+		{
+			if (temp[i] == 0)
+			{
+				temp[i] = 1;
+				result[k] = s[i];
+				permutation(s, k + 1, r);
+				temp[i] = 0;
+			}
+		}
+	}
 }
 
 int32_t main()
 {
-	
-	for (int i = 0; i < 10; i++)
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif // ONLINE_JUDGE
+	ios_base::sync_with_stdio(false);
+	int count = 0;
+	string s;
+	cin>>s;
+	int n;
+	cin>>n;
+	permutation(s, 0, n);
+	for (auto i : allPerm)
 	{
-		cout<<allCombinations()<<"\n";
+		cout << i << "\n";
 	}
-	
-	
 }
