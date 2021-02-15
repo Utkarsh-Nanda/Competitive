@@ -1,14 +1,44 @@
 // Competitive programming ready to use functions - Utkarsh Nanda LNMIIT
 //Add your own functions with proper comments :)
+/*
+To do input/output through files
+#ifndef ONLINE_JUDGE 
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout); 
+#endif
+*/
+/*
+TEMPLATE:
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define ms_i multiset<int>::iterator
+#define s_i set<int>::iterator
+#define v_i vector<int>::iterator
+#define m_i map<int, int>::iterator
+#define mod 1000000007
+int32_t main()
+{
+    ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+    int t;
+    cin >> t;
+    while (t--)
+    {
+
+	}
+}		
+*/
 #include <bits/stdc++.h>
 #define int long long
 #define mod 1000000007
 using namespace std;
 int range = 10000000;
 int prime[10000000];
-void sieve() // 0 means prime, -1 means non prime O(n) = nlog(n)
-{
+void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(n)
+{									 // change range according to the problem
 	memset(prime, 0, sizeof(prime)); // initializes all the values in array "prime" with 0
+	prime[1] = -1;
 	for (int p = 2; p * p <= range; p++)
 	{
 		if (prime[p] == 0)
@@ -20,7 +50,7 @@ void sieve() // 0 means prime, -1 means non prime O(n) = nlog(n)
 }
 int factor[10000000];
 int sieve_factor() // numbers with only 1 or 2 factors are prime numbers O(n) = nlog(n)
-{
+{				   // change range acconding to the problem
 	memset(factor, 0, sizeof(factor));
 	for (int i = 1; i <= range; i++)
 	{
@@ -168,21 +198,29 @@ void permutation(string s, int k, int r) // O(n!*n)
 	}
 }
 
+int floorSqrt(int x) // floor of square root of a number using binary search O(n) = log(n)
+{
+	if (x == 0 || x == 1) // Base cases
+		return x;
+	int start = 1, end = x, ans;
+	while (start <= end)
+	{
+		int mid = (start + end) / 2;
+		if (mid * mid == x)
+			return mid;
+		if (mid * mid < x) // Since we need floor, we update answer when mid*mid is smaller than x, and move closer to sqrt(x)
+		{
+			start = mid + 1;
+			ans = mid;
+		}
+		else
+			end = mid - 1;
+	}
+	return ans;
+}
 int32_t main()
 {
-#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif // ONLINE_JUDGE
 	ios_base::sync_with_stdio(false);
-	int count = 0;
-	string s;
-	cin>>s;
-	int n;
-	cin>>n;
-	permutation(s, 0, n);
-	for (auto i : allPerm)
-	{
-		cout << i << "\n";
-	}
+	cin.tie(NULL);
+	cout<<floorSqrt(10);
 }
