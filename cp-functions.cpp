@@ -130,7 +130,7 @@ long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 }
 int digitcount(int n) // O(1)
 {
-	// n shouldn't have following zeros
+	// n shouldn't have leading zeros
 	if (n == 0)
 		return 1;
 	else if (n < 0)
@@ -140,7 +140,7 @@ int digitcount(int n) // O(1)
 }
 string allCombinations() // O(1) but will have to be called 2^n times making it O(2^n)
 {						 // reminder : a bitset keeps only set values stored
-	static int i = 0;
+	static int i = 0;	 // it contains values from right to left with 0 based indexing
 	bitset<25> c(i);
 	string s;
 	bitset<25> d("1111111111111111111111111");
@@ -218,9 +218,52 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	}
 	return ans;
 }
+
+map<int, int> prime_array;                 // map stores index - exponene pairs
+vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
+{                                           //it returns a vector of pair of prime number and its power
+    vector<pair<int, int>> prime_pairs;
+    int count = 0;
+    if (n == 0)
+        return prime_pairs;
+    else
+    {
+        while (n % 2 == 0)
+        {
+            count++;
+            n = n / 2;
+        }
+        if (count != 0)
+        {
+            prime_array[2] = count;
+            prime_pairs.push_back(make_pair(2, count));
+        }
+        for (int i = 3; i <= sqrt(n); i = i + 2)
+        {
+            count = 0;
+            while (n % i == 0)
+            {
+                count++;
+                n = n / i;
+            }
+            if (count != 0)
+			{
+                prime_array[i] = count;
+                prime_pairs.push_back(make_pair(i, count));
+			}
+        }
+        if (n > 2)
+        {
+            prime_array[n] = 1;
+            prime_pairs.push_back(make_pair(n, 1));
+        }
+        return prime_pairs;
+    }
+}
+
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout<<floorSqrt(10);
+	cout << digitcount(10000000);
 }
