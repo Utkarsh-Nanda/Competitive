@@ -219,7 +219,7 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	return ans;
 }
 
-map<int, int> prime_array;                 // map stores index - exponene pairs
+map<int, int> prime_array;                 // map stores index - exponent pairs
 vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
 {                                           //it returns a vector of pair of prime number and its power
     vector<pair<int, int>> prime_pairs;
