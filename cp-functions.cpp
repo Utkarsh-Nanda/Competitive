@@ -9,6 +9,7 @@ To do input/output through files
 */
 /*
 TEMPLATE:
+
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -28,6 +29,7 @@ int32_t main()
 
 	}
 }		
+
 */
 #include <bits/stdc++.h>
 #define int long long
