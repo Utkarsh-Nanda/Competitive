@@ -221,51 +221,55 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	return ans;
 }
 
-map<int, int> prime_array;                 // map stores index - exponene pairs
+map<int, int> prime_array;					// map stores index - exponene pairs
 vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
-{                                           //it returns a vector of pair of prime number and its power
-    vector<pair<int, int>> prime_pairs;
-    int count = 0;
-    if (n == 0)
-        return prime_pairs;
-    else
-    {
-        while (n % 2 == 0)
-        {
-            count++;
-            n = n / 2;
-        }
-        if (count != 0)
-        {
-            prime_array[2] = count;
-            prime_pairs.push_back(make_pair(2, count));
-        }
-        for (int i = 3; i <= sqrt(n); i = i + 2)
-        {
-            count = 0;
-            while (n % i == 0)
-            {
-                count++;
-                n = n / i;
-            }
-            if (count != 0)
+{											//it returns a vector of pair of prime number and its power
+	vector<pair<int, int>> prime_pairs;
+	int count = 0;
+	if (n == 0)
+		return prime_pairs;
+	else
+	{
+		while (n % 2 == 0)
+		{
+			count++;
+			n = n / 2;
+		}
+		if (count != 0)
+		{
+			prime_array[2] = count;
+			prime_pairs.push_back(make_pair(2, count));
+		}
+		for (int i = 3; i <= sqrt(n); i = i + 2)
+		{
+			count = 0;
+			while (n % i == 0)
 			{
-                prime_array[i] = count;
-                prime_pairs.push_back(make_pair(i, count));
+				count++;
+				n = n / i;
 			}
-        }
-        if (n > 2)
-        {
-            prime_array[n] = 1;
-            prime_pairs.push_back(make_pair(n, 1));
-        }
-        return prime_pairs;
-    }
+			if (count != 0)
+			{
+				prime_array[i] = count;
+				prime_pairs.push_back(make_pair(i, count));
+			}
+		}
+		if (n > 2)
+		{
+			prime_array[n] = 1;
+			prime_pairs.push_back(make_pair(n, 1));
+		}
+		return prime_pairs;
+	}
+}
+float area(int x1, int y1, int x2, int y2, int x3, int y3) // to calclulate of a triangle, given the three points
+{
+	return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
 }
 
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << digitcount(10000000);
+	cout << area(0, 0, 10, 0, 5, 5);
 }

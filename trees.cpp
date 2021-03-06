@@ -80,6 +80,10 @@ void insert(node **root, int val)
             q.push(temp->right);
     }
 }
+void delete_node(node *start, int key)
+{
+    
+}
 int32_t main()
 {
     node *root = NULL;
