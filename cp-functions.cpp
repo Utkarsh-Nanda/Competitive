@@ -1,14 +1,12 @@
 // Competitive programming ready to use functions - Utkarsh Nanda LNMIIT
 //Add your own functions with proper comments :)
-/*
-To do input/output through files
+/* To do input/output through files
 #ifndef ONLINE_JUDGE 
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout); 
 #endif
 */
-/*
-TEMPLATE:
+/* TEMPLATE:
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -76,7 +74,6 @@ int fact_mod(int n, int mo) // to calculate factorial modulo a number O(n) = n
 		return fact;
 	}
 }
-
 long long power(int x, int y, int p) // x raised to y modulo p in O(log(n))
 {
 	int res = 1; // Initialize result
@@ -93,7 +90,6 @@ long long power(int x, int y, int p) // x raised to y modulo p in O(log(n))
 	}
 	return res;
 }
-
 long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it uses logarithmic time to calculate power
 {
 	int y = p - 2;
@@ -112,7 +108,6 @@ long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it
 	}
 	return res;
 }
-
 long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
 {										 // use in combination with modInverse funciton written just above
 	// If n<r, then nCr should return 0
@@ -153,7 +148,6 @@ string allCombinations() // O(1) but will have to be called 2^n times making it 
 	i++;
 	return s;
 }
-
 string Combinations(int r) // O(1) but will have to be called 2^n times making it O(2^n)
 {						   // reminder : a bitset keeps only set values stored
 						   // loop this nCr times to get all the answers
@@ -170,7 +164,6 @@ string Combinations(int r) // O(1) but will have to be called 2^n times making i
 	c = i;
 	return s;
 }
-
 vector<string> allPerm;					 // global variable
 void permutation(string s, int k, int r) // O(n!*n)
 {
@@ -199,7 +192,6 @@ void permutation(string s, int k, int r) // O(n!*n)
 		}
 	}
 }
-
 int floorSqrt(int x) // floor of square root of a number using binary search O(n) = log(n)
 {
 	if (x == 0 || x == 1) // Base cases
@@ -220,7 +212,6 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	}
 	return ans;
 }
-
 map<int, int> prime_array;					// map stores index - exponene pairs
 vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
 {											//it returns a vector of pair of prime number and its power
@@ -273,3 +264,5 @@ int32_t main()
 	cin.tie(NULL);
 	cout << area(0, 0, 10, 0, 5, 5);
 }
+
+
