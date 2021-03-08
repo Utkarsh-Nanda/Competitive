@@ -107,7 +107,6 @@ bool BinaryTree::isEmpty()
         return false;
 }
 
-
 node *create_node(int val)
 {
     node *temp = new node;
@@ -140,7 +139,6 @@ node *search(node *root, int val)
         if (temp->val == val)
         {
             out = temp;
-            cout << "HIT\n";
         }
     }
     return out;
@@ -189,7 +187,6 @@ void extreme_right_to_null(node *start, node *extremeRight)
             if (temp->left == extremeRight)
             {
                 temp->left = NULL;
-                cout << "FOUND\n";
                 return;
             }
             else
@@ -200,7 +197,6 @@ void extreme_right_to_null(node *start, node *extremeRight)
             if (temp->right == extremeRight)
             {
                 temp->right = NULL;
-                cout << "FOUND\n";
                 return;
             }
             else
@@ -295,20 +291,47 @@ void print_tree(node *root, int height)
         cout << print_bft_level(root, i) << "\n";
     }
 }
-
+int height(node *root)
+{
+    int lheight = 0, rheight = 0;
+    if (root == NULL)
+        return 0;
+    else
+    {
+        lheight = height(root->left);
+        rheight = height(root->right);
+        return max(lheight, rheight) + 1;
+    }
+}
+int count(node *root)
+{
+    if (root == NULL)
+        return 0;
+    else
+    {
+        return count(root->left) + count(root->right) + 1;
+    }
+}
 int32_t main()
 {
-    BinaryTree bt;
-
-    cout << bt.search(3);
-    cout << "\n";
-    bt.display();
-    bt.delete_last();
-    bt.delete_last();
-    cout << "\n";
-    bt.display();
-    cout << "\n"
-         << bt.leftIndex(2);
-    cout << "\n"
-         << bt.isEmpty();
+    int n;
+    cin >> n;
+    node *root = NULL;
+    for (int i = 1; i <= n; i++)
+    {
+        insert(&root, i);
+    }
+    print_tree(root, height(root) - 1);
+    cout << "height = " << height(root);
+    cout << "\n" << "No of nodes : " << count(root);
+    for (int i = 20; i < 40; i++)
+    {
+        delete_node(root, i);
+    }
+    
+    delete_node(root, 41);
+    cout << "\n" << "No of node : " << count(root) << "\n";
+    print_tree(root, height(root) - 1);
+    cout << "height = " << height(root);
+    cout << "\n" << "No of nodes : " << count(root);
 }
