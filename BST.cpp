@@ -13,12 +13,16 @@ public:
 class BST
 {
 private:
-    
+    Node *root;
 
 public:
-Node *root;
     BST() { root = nullptr; }
     Node *getRoot() { return root; }
+    Node * changeRoot(Node *p)
+    {
+        root = p;
+        return root;
+    }
     void iInsert(int key);
     void Inorder(Node *p);
     Node *iSearch(int key);
@@ -116,7 +120,7 @@ Node *BST::rInsert(Node *p, int key)
     Node *t;
     if (p == nullptr)
     {
-        
+
         t = new Node;
         t->data = key;
         t->lchild = nullptr;
@@ -237,7 +241,7 @@ int main()
 
     BST bst;
     // Recursive insert
-    bst.root = bst.rInsert(bst.getRoot(), 50);
+    bst.changeRoot(bst.rInsert(bst.getRoot(), 50));
     bst.rInsert(bst.getRoot(), 70);
     bst.rInsert(bst.getRoot(), 1);
     bst.Inorder(bst.getRoot());
@@ -245,6 +249,6 @@ int main()
          << endl;
 
     // Inorder predecessor and inorder successor
-    
+
     return 0;
 }
