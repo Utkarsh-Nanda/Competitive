@@ -1,114 +1,250 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
-struct node
+
+class Node
 {
-    node *left;
-    node *right;
-    int val;
+public:
+    Node *lchild;
+    int data;
+    Node *rchild;
 };
-string print_bft_level(node *root, int level)
+
+class BST
 {
-    if (root == NULL)
-        return "-";
-    else if (level == 1)
-        return to_string(root->val);
-    else if (level > 1)
-        return print_bft_level(root->left, level - 1) + ", " + print_bft_level(root->right, level - 1);
-}
-void print_tree(node *root, int height)
+private:
+    
+
+public:
+Node *root;
+    BST() { root = nullptr; }
+    Node *getRoot() { return root; }
+    void iInsert(int key);
+    void Inorder(Node *p);
+    Node *iSearch(int key);
+    Node *rInsert(Node *p, int key);
+    Node *rSearch(Node *p, int key);
+    Node *Delete(Node *p, int key);
+    int Height(Node *p);
+    Node *InPre(Node *p);
+    Node *InSucc(Node *p);
+};
+
+void BST::iInsert(int key)
 {
-    for (int i = 1; i <= height + 1; i++)
+
+    Node *t = root;
+    Node *p;
+    Node *r;
+
+    // root is empty
+    if (root == nullptr)
     {
-        cout << print_bft_level(root, i) << "\n";
+        p = new Node;
+        p->data = key;
+        p->lchild = nullptr;
+        p->rchild = nullptr;
+        root = p;
+        return;
     }
-}
-int height(node *root)
-{
-    int lheight = 0, rheight = 0;
-    if (root == NULL)
-        return 0;
+
+    while (t != nullptr)
+    {
+        r = t;
+        if (key < t->data)
+        {
+            t = t->lchild;
+        }
+        else if (key > t->data)
+        {
+            t = t->rchild;
+        }
+        else
+        {
+            return;
+        }
+    }
+    // Now t points at NULL and r points at insert location
+    p = new Node;
+    p->data = key;
+    p->lchild = nullptr;
+    p->rchild = nullptr;
+
+    if (key < r->data)
+    {
+        r->lchild = p;
+    }
     else
     {
-        lheight = height(root->left);
-        rheight = height(root->right);
-        return max(lheight, rheight) + 1;
+        r->rchild = p;
     }
-}
-node *create_node(int key)
-{
-    node *temp = new node();
-    temp->left = NULL;
-    temp->right = NULL;
-    temp->val = key;
-    return temp;
-}
-node *insert(node *root, int key)
-{
-    if (root == NULL) // insert a new node
-    {
-        node *new_node = create_node(key);
-        return new_node;
-    }
-    if (root->val == key)
-    {
-        cout << "Value already exists!\n";
-        return root;
-    }
-    else if (key > root->val)
-    {
-        root->right = insert(root->right, key);
-        return root;
-    }
-    else
-    {
-        root->left = insert(root->left, key);
-        return root;
-    }
-}
-void print_inorder(node *root)
-{
-    if (root != NULL)
-    {
-        print_inorder(root->left);
-        cout << root->val << " ";
-        print_inorder(root->right);
-    }
-}
-node *search(node *root, int key)
-{
-    if (root == NULL || root->val == key)
-        return root;
-    if (key > root->val)
-        return search(root->right, key);
-    if (key < root->val)
-        return search(root->left, key);
-}
-node *min_val(node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else if (root->left == NULL && root->right == NULL)
-        return root;
-    else if (root->left != NULL)
-        return min_val(root->left);
-    else
-        return root;
 }
 
-int32_t main()
-{ // 5,2 ,1 24, 9, 4, 22
-    node *start = NULL;
-    start = insert(start, 5);
-    start = insert(start, 2);
-    start = insert(start, 1);
-    start = insert(start, 24);
-    start = insert(start, 9);
-    start = insert(start, 4);
-    start = insert(start, 22);
-    cout << "inserted\n";
-    print_tree(start, height(start) - 1);
-    search(start, 90) != NULL ? cout << "\nSearch location : " << search(start, 90)->val : cout << "\nSearch location : " << -1;
-    cout << "\n" << min_val(start)->val << "\n";
-    start = delete_node(start, 2);
-    print_tree(start, height(start) - 1);
+void BST::Inorder(Node *p)
+{
+    if (p)
+    {
+        Inorder(p->lchild);
+        cout << p->data << ", " << flush;
+        Inorder(p->rchild);
+    }
+}
+
+Node *BST::iSearch(int key)
+{
+    Node *t = root;
+    while (t != nullptr)
+    {
+        if (key == t->data)
+        {
+            return t;
+        }
+        else if (key < t->data)
+        {
+            t = t->lchild;
+        }
+        else
+        {
+            t = t->rchild;
+        }
+    }
+    return nullptr;
+}
+
+Node *BST::rInsert(Node *p, int key)
+{
+    Node *t;
+    if (p == nullptr)
+    {
+        
+        t = new Node;
+        t->data = key;
+        t->lchild = nullptr;
+        t->rchild = nullptr;
+        return t;
+    }
+
+    if (key < p->data)
+    {
+        p->lchild = rInsert(p->lchild, key);
+    }
+    else if (key > p->data)
+    {
+        p->rchild = rInsert(p->rchild, key);
+    }
+    return p; // key == p->data?
+}
+
+Node *BST::rSearch(Node *p, int key)
+{
+    if (p == nullptr)
+    {
+        return nullptr;
+    }
+
+    if (key == p->data)
+    {
+        return p;
+    }
+    else if (key < p->data)
+    {
+        return rSearch(p->lchild, key);
+    }
+    else
+    {
+        return rSearch(p->rchild, key);
+    }
+}
+
+Node *BST::Delete(Node *p, int key)
+{
+    Node *q;
+
+    if (p == nullptr)
+    {
+        return nullptr;
+    }
+
+    if (p->lchild == nullptr && p->rchild == nullptr)
+    {
+        if (p == root)
+        {
+            root = nullptr;
+        }
+        delete p;
+        return nullptr;
+    }
+
+    if (key < p->data)
+    {
+        p->lchild = Delete(p->lchild, key);
+    }
+    else if (key > p->data)
+    {
+        p->rchild = Delete(p->rchild, key);
+    }
+    else
+    {
+        if (Height(p->lchild) > Height(p->rchild))
+        {
+            q = InPre(p->lchild);
+            p->data = q->data;
+            p->lchild = Delete(p->lchild, q->data);
+        }
+        else
+        {
+            q = InSucc(p->rchild);
+            p->data = q->data;
+            p->rchild = Delete(p->rchild, q->data);
+        }
+    }
+    return p;
+}
+
+int BST::Height(Node *p)
+{
+    int x;
+    int y;
+    if (p == nullptr)
+    {
+        return 0;
+    }
+    x = Height(p->lchild);
+    y = Height(p->rchild);
+    return x > y ? x + 1 : y + 1;
+}
+
+Node *BST::InPre(Node *p)
+{
+    while (p && p->rchild != nullptr)
+    {
+        p = p->rchild;
+    }
+    return p;
+}
+
+Node *BST::InSucc(Node *p)
+{
+    while (p && p->lchild != nullptr)
+    {
+        p = p->lchild;
+    }
+    return p;
+}
+
+int main()
+{
+
+    BST bst;
+    // Recursive insert
+    bst.root = bst.rInsert(bst.getRoot(), 50);
+    bst.rInsert(bst.getRoot(), 70);
+    bst.rInsert(bst.getRoot(), 1);
+    bst.Inorder(bst.getRoot());
+    cout << "\n"
+         << endl;
+
+    // Inorder predecessor and inorder successor
+    
+    return 0;
 }
