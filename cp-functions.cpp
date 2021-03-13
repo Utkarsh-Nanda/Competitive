@@ -212,7 +212,7 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	}
 	return ans;
 }
-map<int, int> prime_array;                 // map stores index - exponent pairs
+map<int, int> prime_array;					// map stores index - exponent pairs
 vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
 {											//it returns a vector of pair of prime number and its power
 	vector<pair<int, int>> prime_pairs;
@@ -257,12 +257,57 @@ float area(int x1, int y1, int x2, int y2, int x3, int y3) // to calclulate area
 {
 	return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
 }
-
+pair<int, int> longest_consecutive_chain(int ar[], int size) // O(n) = n, returns the pair of element and length of
+{															 //longest consecutive chain of number in the array
+	pair<int, int> mxm;										 // if multiple chain with same length then return the first
+	int prev = -1;
+	int count = 0;
+	int j = 0;
+	while (j < size)
+	{
+		int i = 0;
+		count = 0;
+		while (ar[i + j] == ar[j] && ar[i + j] != size - 1)
+		{
+			count++;
+			i++;
+		}
+		if (count > mxm.second) // make this '>=' to get the last chain with largest length
+		{
+			mxm = {ar[j], count};
+		}
+		j += count;
+	}
+	return mxm;
+}
+int longest_consecutive_chain_of_one(int ar[], int size) // O(n) = n, returns the length of longest consecutive chain of 1
+{
+    int mxm = 0;
+    int prev = 0;
+    int count = 0;
+    for (int j = 0; j < size; j++)
+    {
+        if (ar[j] == 1)
+        {
+            count++;
+            prev = 1;
+        }
+        else if (prev == 1 && ar[j] == 0)
+        {
+            prev = 0;
+            mxm = max(count, mxm);
+            count = 0;
+        }
+        if (j == size - 1)
+        {
+            mxm = max(count, mxm);
+        }
+    }
+    return mxm;
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout << area(0, 0, 10, 0, 5, 5);
 }
-
-
