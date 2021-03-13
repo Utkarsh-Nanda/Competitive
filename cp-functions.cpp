@@ -8,6 +8,7 @@
 */
 /* TEMPLATE:
 
+#pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
