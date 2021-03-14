@@ -283,32 +283,55 @@ pair<int, int> longest_consecutive_chain(int ar[], int size) // O(n) = n, return
 }
 int longest_consecutive_chain_of_one(int ar[], int size) // O(n) = n, returns the length of longest consecutive chain of 1
 {
-    int mxm = 0;
-    int prev = 0;
-    int count = 0;
-    for (int j = 0; j < size; j++)
-    {
-        if (ar[j] == 1)
-        {
-            count++;
-            prev = 1;
-        }
-        else if (prev == 1 && ar[j] == 0)
-        {
-            prev = 0;
-            mxm = max(count, mxm);
-            count = 0;
-        }
-        if (j == size - 1)
-        {
-            mxm = max(count, mxm);
-        }
-    }
-    return mxm;
+	int mxm = 0;
+	int prev = 0;
+	int count = 0;
+	for (int j = 0; j < size; j++)
+	{
+		if (ar[j] == 1)
+		{
+			count++;
+			prev = 1;
+		}
+		else if (prev == 1 && ar[j] == 0)
+		{
+			prev = 0;
+			mxm = max(count, mxm);
+			count = 0;
+		}
+		if (j == size - 1)
+		{
+			mxm = max(count, mxm);
+		}
+	}
+	return mxm;
+}
+int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr.
+{
+	int a = n - r;
+	int b = r;
+	int mim = 0, mxm = 0;
+	if (a > b) // reduce the part from numerator which is greater among a and b
+	{
+		mxm = a;
+		mim = b;
+	}
+	else
+	{
+		mxm = b;
+		mim = a;
+	}
+	int numerator = 1;
+	for (int i = mxm + 1; i <= n; i++)
+	{
+		numerator *= i;
+		numerator /= (i - mxm); // dividing by the smaller among a and b, doing here so that numerator doesn't overflow long long capacity
+	}
+	return numerator;
 }
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << area(0, 0, 10, 0, 5, 5);
+	cout << nCr(4, 2);
 }
