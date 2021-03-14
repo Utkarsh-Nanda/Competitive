@@ -306,7 +306,7 @@ int longest_consecutive_chain_of_one(int ar[], int size) // O(n) = n, returns th
 	}
 	return mxm;
 }
-int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr.
+int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr. // function overriding with another function
 {
 	int a = n - r;
 	int b = r;
@@ -333,5 +333,5 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << nCr(4, 2);
+	cout << nCr(4, 2, 100000);
 }
