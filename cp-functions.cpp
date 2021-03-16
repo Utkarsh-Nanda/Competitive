@@ -126,14 +126,14 @@ long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 
 	return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
 }
-int digitcount(int n) // O(1)
+int digitcount(int n, int b) // O(1)
 {
 	// n shouldn't have leading zeros
 	if (n == 0)
 		return 1;
 	else if (n < 0)
 		n *= -1;
-	int digits = floor(log10(n)) + 1;
+	int digits = floor(log10(n) / log10(b)) + 1;
 	return digits;
 }
 string allCombinations() // O(1) but will have to be called 2^n times making it O(2^n)
@@ -333,5 +333,5 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << nCr(4, 2, 100000);
+	cout << digitcount(52442000, 10);
 }
