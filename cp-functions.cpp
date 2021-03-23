@@ -17,10 +17,12 @@ using namespace std;
 #define v_i vector<int>::iterator
 #define m_i map<int, int>::iterator
 #define mod 1000000007
+#define rep(i,j,k) for(int i = j; i <= k; i++)
 int32_t main()
 {
-    ios_base::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false); // remove it at the time of debugging
 	cin.tie(NULL);
+	cout.tie(NULL);
     int t;
     cin >> t;
     while (t--)
