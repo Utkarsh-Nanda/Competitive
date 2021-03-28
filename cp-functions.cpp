@@ -18,6 +18,11 @@ using namespace std;
 #define m_i map<int, int>::iterator
 #define mod 1000000007
 #define rep(i,j,k) for(int i = j; i <= k; i++)
+int solve()
+{
+
+}
+
 int32_t main()
 {
     ios_base::sync_with_stdio(false); // remove it at the time of debugging
@@ -27,7 +32,7 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-
+		solve();
 	}
 }		
 
