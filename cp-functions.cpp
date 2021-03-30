@@ -18,11 +18,6 @@ using namespace std;
 #define m_i map<int, int>::iterator
 #define mod 1000000007
 #define rep(i,j,k) for(int i = j; i <= k; i++)
-int solve()
-{
-
-}
-
 int32_t main()
 {
     ios_base::sync_with_stdio(false); // remove it at the time of debugging
@@ -32,7 +27,7 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-		solve();
+
 	}
 }		
 
@@ -220,10 +215,10 @@ int floorSqrt(int x) // floor of square root of a number using binary search O(n
 	}
 	return ans;
 }
-map<int, int> prime_array;					// map stores index - exponent pairs
-vector<pair<int, int>> prime_factors(int n) // O(n) = sqrt(n)
-{											//it returns a vector of pair of prime number and its power
-	vector<pair<int, int>> prime_pairs;
+map<int, int> prime_array;					// map stores index - exponent pairs, if number of test cases is < 10^4 then it can be used
+vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
+{											//O(n) = sqrt(n)
+	vector<pair<int, int>> prime_pairs;		//it returns a vector of pair of prime number and its power
 	int count = 0;
 	if (n == 0)
 		return prime_pairs;
@@ -335,6 +330,16 @@ int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr. 
 		numerator /= (i - mxm); // dividing by the smaller among a and b, doing here so that numerator doesn't overflow long long capacity
 	}
 	return numerator;
+}
+int sum_of_digits(int num)
+{
+	int sum = 0ll;
+	while (num != 0)
+	{
+		sum += (num % 10);
+		num /= 10;
+	}
+	return sum;
 }
 int32_t main()
 {
