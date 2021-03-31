@@ -331,7 +331,7 @@ int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr. 
 	}
 	return numerator;
 }
-int sum_of_digits(int num)
+int sum_of_digits(int num) // 0(n) = length of number
 {
 	int sum = 0ll;
 	while (num != 0)
