@@ -341,6 +341,26 @@ int sum_of_digits(int num)
 	}
 	return sum;
 }
+vector<int> allPrime;
+void allPrimeFactors(int n) // O(n) = sqrt(n) // vector allPrime contains all the factors of n
+{
+	// Note that this loop runs till square root
+	for (int i = 1; i <= sqrt(n); i++)
+	{
+		if (n % i == 0)
+		{
+			// If divisors are equal, print only one
+			if (n / i == i)
+				allPrime.push_back(i);
+
+			else // Otherwise print both
+			{
+				allPrime.push_back(i);
+				allPrime.push_back(n / i);
+			}
+		}
+	}
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
