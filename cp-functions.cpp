@@ -16,8 +16,9 @@ using namespace std;
 #define s_i set<int>::iterator
 #define v_i vector<int>::iterator
 #define m_i map<int, int>::iterator
-#define mod 1000000007
 #define rep(i,j,k) for(int i = j; i <= k; i++)
+#define pi 3.14159265358979
+#define mod 1000000007
 int32_t main()
 {
     ios_base::sync_with_stdio(false); // remove it at the time of debugging
@@ -331,7 +332,7 @@ int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr. 
 	}
 	return numerator;
 }
-int sum_of_digits(int num) // 0(n) = length of number
+int sum_of_digits(int num) // O(n) = length of number
 {
 	int sum = 0ll;
 	while (num != 0)
@@ -342,7 +343,7 @@ int sum_of_digits(int num) // 0(n) = length of number
 	return sum;
 }
 vector<int> allPrime;
-void allPrimeFactors(int n) // O(n) = sqrt(n) // vector allPrime contains all the factors of n
+void allPrimeFactors(int n) // O(n) = sqrt(n), vector allPrime contains all the factors of n
 {
 	// Note that this loop runs till square root
 	for (int i = 1; i <= sqrt(n); i++)
@@ -361,9 +362,20 @@ void allPrimeFactors(int n) // O(n) = sqrt(n) // vector allPrime contains all th
 		}
 	}
 }
+vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector of number in a given base
+{											  // values are indexed from right to left, reverse it to convert into standard form
+	vector<int> v;							  // vector size represents length of nubmer in that base
+	int index = 0;
+	while (n)
+	{
+		v.push_back(n % base);
+		index++;
+		n /= base;
+	}
+	return v;
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << digitcount(52442000, 10);
 }
