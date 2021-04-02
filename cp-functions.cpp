@@ -17,8 +17,11 @@ using namespace std;
 #define v_i vector<int>::iterator
 #define m_i map<int, int>::iterator
 #define rep(i,j,k) for(int i = j; i <= k; i++)
+#define pb push_back
+#define mp make_pair
 #define pi 3.14159265358979
 #define mod 1000000007
+
 int32_t main()
 {
     ios_base::sync_with_stdio(false); // remove it at the time of debugging
@@ -364,7 +367,7 @@ void allPrimeFactors(int n) // O(n) = sqrt(n), vector allPrime contains all the 
 }
 vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector of number in a given base
 {											  // values are indexed from right to left, reverse it to convert into standard form
-	vector<int> v;							  // vector size represents length of nubmer in that base
+	vector<int> v;							  // vector size represents length of number in that base
 	int index = 0;
 	while (n)
 	{
@@ -378,4 +381,11 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
+	int n, base;
+	cin >> n >> base;
+	vector<int> v = num_in_diff_base(n, base);
+	for (auto i : v)
+	{
+		cout << i << " ";
+	}
 }
