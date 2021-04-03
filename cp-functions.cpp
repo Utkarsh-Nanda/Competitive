@@ -367,7 +367,7 @@ void allPrimeFactors(int n) // O(n) = sqrt(n), vector allPrime contains all the 
 }
 vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector of number in a given base
 {											  // values are indexed from right to left, reverse it to convert into standard form
-	vector<int> v;							  // vector size represents length of number in that base
+	vector<int> v;							  // vector size represents length of nubmer in that base
 	int index = 0;
 	while (n)
 	{
@@ -376,6 +376,32 @@ vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector
 		n /= base;
 	}
 	return v;
+}
+bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a sequence of small brackets is balanced or not
+{
+    bool flag = true;
+    int count = 0;
+    for (int i = 0; i < exp.length(); i++)
+    {
+        if (exp[i] == '(')
+        {
+            count++;
+        }
+        else
+        {
+            count--;
+        }
+        if (count < 0)
+        {
+            flag = false;
+            break;
+        }
+    }
+    if (count != 0)
+    {
+        flag = false;
+    }
+    return flag;
 }
 int32_t main()
 {
