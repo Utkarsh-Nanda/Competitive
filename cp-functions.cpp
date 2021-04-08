@@ -8,7 +8,6 @@
 */
 /* TEMPLATE:
 
-#pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -33,7 +32,17 @@ int32_t main()
     {
 
 	}
-}		
+}	
+
+For sortng container of pairs : 
+
+bool sortpair(pair<int, int> a, pair<int, int> b)
+{
+	if (a.first < b.first)
+		return true;
+	else
+		return false;
+}
 
 */
 #include <bits/stdc++.h>
@@ -379,29 +388,23 @@ vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector
 }
 bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a sequence of small brackets is balanced or not
 {
-    bool flag = true;
-    int count = 0;
-    for (int i = 0; i < exp.length(); i++)
-    {
-        if (exp[i] == '(')
-        {
-            count++;
-        }
-        else
-        {
-            count--;
-        }
-        if (count < 0)
-        {
-            flag = false;
-            break;
-        }
-    }
-    if (count != 0)
-    {
-        flag = false;
-    }
-    return flag;
+	bool flag = true;
+	int count = 0;
+	for (int i = 0; i < exp.length(); i++)
+	{
+		if (exp[i] == '(')
+			count++;
+		else
+			count--;
+		if (count < 0)
+		{
+			flag = false;
+			break;
+		}
+	}
+	if (count != 0)
+		flag = false;
+	return flag;
 }
 int32_t main()
 {
