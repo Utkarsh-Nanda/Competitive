@@ -406,6 +406,15 @@ bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a s
 		flag = false;
 	return flag;
 }
+bool is_pall(string x) // O(n) = n
+{
+    string y = x;
+    reverse(y.begin(), y.end());
+    if (y == x)
+        return true;
+    else
+        return false;
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
