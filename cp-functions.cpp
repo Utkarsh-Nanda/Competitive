@@ -416,7 +416,7 @@ bool is_pall(string x) // O(n) = n
 	else
 		return false;
 }
-int *rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
+void *rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
 {																 // size = total size of the array
 	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
 	int ar2[size] = {0};										 // dir = direction to rotate the array, right or left
