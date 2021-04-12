@@ -16,9 +16,10 @@ using namespace std;
 #define v_i vector<int>::iterator
 #define m_i map<int, int>::iterator
 #define rep(i,j,k) for(int i = j; i <= k; i++)
+#define ceiling(a,b) ((a+b-1)/b)
 #define pb push_back
 #define mp make_pair
-#define pi 3.14159265358979
+#define pi 3.14159265358979323846
 #define mod 1000000007
 
 int32_t main()
@@ -408,14 +409,33 @@ bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a s
 }
 bool is_pall(string x) // O(n) = n
 {
-    string y = x;
-    reverse(y.begin(), y.end());
-    if (y == x)
-        return true;
-    else
-        return false;
+	string y = x;
+	reverse(y.begin(), y.end());
+	if (y == x)
+		return true;
+	else
+		return false;
 }
-int32_t main()
+int *rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
+{																 // size = total size of the array
+	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
+	int ar2[size] = {0};										 // dir = direction to rotate the array, right or left
+
+	if (dir == "right")
+	{
+		for (int i = 1 + indexing; i <= size - 1; i++)
+			ar2[i] = ar[i - 1];
+	}
+	else
+	{
+		for (int i = 1 + indexing; i <= size - 1; i++)
+			ar2[i - 1] = ar[i];
+	}
+	dir == "right" ? ar2[0 + indexing] = temp : ar2[size - 1] = temp;
+	for (int i = 0; i <= size - 1; i++)
+		ar[i] = ar2[i];
+}
+int32_t main() 
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
