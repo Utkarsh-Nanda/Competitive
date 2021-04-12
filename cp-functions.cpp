@@ -416,12 +416,12 @@ bool is_pall(string x) // O(n) = n
 	else
 		return false;
 }
-void *rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
+void rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
 {																 // size = total size of the array
 	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
 	int ar2[size] = {0};										 // dir = direction to rotate the array, right or left
 
-	if (dir == "right")
+	if (dir == "right") // it manipulates the string sent as parameter, thus doesn't return anything
 	{
 		for (int i = 1 + indexing; i <= size - 1; i++)
 			ar2[i] = ar[i - 1];
@@ -435,7 +435,29 @@ void *rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = ar
 	for (int i = 0; i <= size - 1; i++)
 		ar[i] = ar2[i];
 }
-int32_t main() 
+string rotate(string ar, string dir) // O(n) = n, string ar = string to rotate, dir = direction to rotate
+{									 // returns rotated string
+	int size = ar.size();
+	char temp = dir == "right" ? ar[size - 1] : ar[0];
+	string ar2;
+	for (int i = 0; i < size; i++)
+	{
+		ar2 += '.';
+	}
+	if (dir == "right")
+	{
+		for (int i = 1; i <= size - 1; i++)
+			ar2[i] = ar[i - 1];
+	}
+	else
+	{
+		for (int i = 1; i <= size - 1; i++)
+			ar2[i - 1] = ar[i];
+	}
+	dir == "right" ? ar2[0] = temp : ar2[size - 1] = temp;
+	return ar2;
+}
+int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
