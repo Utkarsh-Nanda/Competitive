@@ -11,13 +11,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define ms_i multiset<int>::iterator
-#define s_i set<int>::iterator
-#define v_i vector<int>::iterator
-#define m_i map<int, int>::iterator
 #define rep(i,j,k) for(int i = j; i <= k; i++)
-#define ceiling(a,b) ((a+b-1)/b)
 #define pb push_back
+#define pf push_front
 #define mp make_pair
 #define pi 3.14159265358979323846
 #define mod 1000000007
@@ -141,6 +137,23 @@ long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 	int div1 = modInverse(fac[r], p);
 
 	return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
+}
+long long nPr(long long n, int r, int p) // Returns nPr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
+{										 // use in combination with modInverse funciton written just above
+	// If n<r, then nCr should return 0
+	if (n < r)
+		return 0;
+	// Base case
+	if (r == 0)
+		return 1;
+
+	long long fac[n + 1];
+	fac[0] = 1;
+	for (int i = 1; i <= n; i++)
+		fac[i] = (fac[i - 1] * i) % p;
+	int div1 = modInverse(fac[r], p);
+
+	return ((fac[n] % p) * (modInverse(fac[n - r], p) % p)) % p;
 }
 int digitcount(int n, int b) // O(1)
 {
@@ -435,6 +448,25 @@ void rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = arr
 	for (int i = 0; i <= size - 1; i++)
 		ar[i] = ar2[i];
 }
+void rotate(vector<int> &ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
+{																 // size = total size of the array
+	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
+	vector<int> ar2(size);									 // dir = direction to rotate the array, right or left
+
+	if (dir == "right") // it manipulates the string sent as parameter, thus doesn't return anything
+	{
+		for (int i = 1 + indexing; i <= size - 1; i++)
+			ar2[i] = ar[i - 1];
+	}
+	else
+	{
+		for (int i = 1 + indexing; i <= size - 1; i++)
+			ar2[i - 1] = ar[i];
+	}
+	dir == "right" ? ar2[0 + indexing] = temp : ar2[size - 1] = temp;
+	for (int i = 0; i <= size - 1; i++)
+		ar[i] = ar2[i];
+}
 string rotate(string ar, string dir) // O(n) = n, string ar = string to rotate, dir = direction to rotate
 {									 // returns rotated string
 	int size = ar.size();
@@ -461,11 +493,5 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int n, base;
-	cin >> n >> base;
-	vector<int> v = num_in_diff_base(n, base);
-	for (auto i : v)
-	{
-		cout << i << " ";
-	}
+	cout << nPr(5, 3, mod);
 }
