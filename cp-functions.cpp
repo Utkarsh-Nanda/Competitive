@@ -11,7 +11,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define rep(i,j,k) for(int i = j; i <= k; i++)
+#define rep(i, j, k) for(int i = j; i <= k; i++)
 #define pb push_back
 #define pf push_front
 #define mp make_pair
@@ -138,7 +138,7 @@ long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 
 	return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
 }
-long long nPr(long long n, int r, int p) // Returns nPr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
+long long nPr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
 {										 // use in combination with modInverse funciton written just above
 	// If n<r, then nCr should return 0
 	if (n < r)
@@ -358,7 +358,7 @@ int nCr(int n, int r) // O(n) = n/2, this is the most optimal way to count nCr. 
 	}
 	return numerator;
 }
-int sum_of_digits(int num) // O(n) = length of number
+int sum_of_digits(int num) // O(n) = length of number, returns sum of digits of a number
 {
 	int sum = 0ll;
 	while (num != 0)
@@ -420,7 +420,7 @@ bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a s
 		flag = false;
 	return flag;
 }
-bool is_pall(string x) // O(n) = n
+bool is_pall(string x) // O(n) = n, checks whether a string is pallindrome or not
 {
 	string y = x;
 	reverse(y.begin(), y.end());
@@ -448,10 +448,10 @@ void rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = arr
 	for (int i = 0; i <= size - 1; i++)
 		ar[i] = ar2[i];
 }
-void rotate(vector<int> &ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
+void rotate(vector<int> &ar, int size, int indexing, string dir) // O(n) = n, ar = array of which elements to rotate
 {																 // size = total size of the array
 	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
-	vector<int> ar2(size);									 // dir = direction to rotate the array, right or left
+	vector<int> ar2(size);										 // dir = direction to rotate the array, right or left
 
 	if (dir == "right") // it manipulates the string sent as parameter, thus doesn't return anything
 	{
@@ -493,5 +493,5 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << nPr(5, 3, mod);
+	cout << nCr(4, 3, 100);
 }
