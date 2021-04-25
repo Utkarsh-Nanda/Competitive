@@ -489,6 +489,17 @@ string rotate(string ar, string dir) // O(n) = n, string ar = string to rotate, 
 	dir == "right" ? ar2[0] = temp : ar2[size - 1] = temp;
 	return ar2;
 }
+int pairing_fun(pair<int, int> a) // O(n) = 1, returns a unique integer for a pair of integer, safe to use for if both the integers are less than 10^7
+{								  // integers can be positive or negative
+	int first = a.first;
+	int second = a.second;
+	if (first < 0)
+		first += 1e8;
+	if (second < 0)
+		second += 1e8;
+	int val = ((first + second) * (first + second + 1)) / 2 + second;
+	return val;
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
