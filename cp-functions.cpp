@@ -489,7 +489,7 @@ string rotate(string ar, string dir) // O(n) = n, string ar = string to rotate, 
 	dir == "right" ? ar2[0] = temp : ar2[size - 1] = temp;
 	return ar2;
 }
-int pairing_fun(pair<int, int> a) // O(n) = 1, returns a unique integer for a pair of integer, safe to use if both the integers are less than 10^7
+int pairing_fun(pair<int, int> a) // O(n) = 1, returns a unique integer for a pair of integer, safe to use for if both the integers are less than 10^7
 {								  // integers can be positive or negative
 	int first = a.first;
 	int second = a.second;
@@ -499,6 +499,34 @@ int pairing_fun(pair<int, int> a) // O(n) = 1, returns a unique integer for a pa
 		second += 1e8;
 	int val = ((first + second) * (first + second + 1)) / 2 + second;
 	return val;
+}
+string smaller_num(string one, string two) // O(n) = n(size of the smaller string), takes two numbers in string format and returns the smaller one.
+{										   // two return the bigger number change '<' to '>' from all the places.
+	if (one.size() < two.size())
+		return one;
+	else if (two.size() < one.size())
+		return two;
+	else
+	{
+		bool flag = false;
+		for (int i = 0; i < one.size(); i++)
+		{
+			if (one[i] < two[i])
+			{
+				flag = true;
+				return one;
+				break;
+			}
+			else if (two[i] < one[i])
+			{
+				flag = true;
+				return two;
+				break;
+			}
+		}
+		if (flag == false)
+			return one;
+	}
 }
 int32_t main()
 {
