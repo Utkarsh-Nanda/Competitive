@@ -222,8 +222,8 @@ void permutation(string s, int k, int r) // O(n!*n)
 		}
 	}
 }
-int floorSqrt(int x) // floor of square root of a number using binary search O(n) = log(n)
-{
+int floorSqrt(int x)	  // floor of square root of a number using binary search O(n) = log(n)
+{						  // precatuion : x must be less than equal to 10^9
 	if (x == 0 || x == 1) // Base cases
 		return x;
 	int start = 1, end = x, ans;
@@ -246,8 +246,8 @@ map<int, int> prime_array;					// map stores index - exponent pairs, if number o
 vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 {											//O(n) = sqrt(n)
 	vector<pair<int, int>> prime_pairs;		//it returns a vector of pair of prime number and its power
-	int count = 0;
-	if (n == 0)
+	int count = 0;							// if getting TLE int 10^4 test cases, dont't use map, use vector of pairs that you return,										//  delete all the lines related to map.
+	if (n == 0)								// that way no need to clear the map 10^4 times, which may sometime cause TLE,
 		return prime_pairs;
 	else
 	{
@@ -258,7 +258,7 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 		}
 		if (count != 0)
 		{
-			prime_array[2] = count;
+			prime_array[2] = count; // map line
 			prime_pairs.push_back(make_pair(2, count));
 		}
 		for (int i = 3; i <= sqrt(n); i = i + 2)
@@ -271,13 +271,13 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 			}
 			if (count != 0)
 			{
-				prime_array[i] = count;
+				prime_array[i] = count; // map line
 				prime_pairs.push_back(make_pair(i, count));
 			}
 		}
 		if (n > 2)
 		{
-			prime_array[n] = 1;
+			prime_array[n] = 1; // map line
 			prime_pairs.push_back(make_pair(n, 1));
 		}
 		return prime_pairs;
