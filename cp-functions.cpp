@@ -155,16 +155,6 @@ long long nPr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 
 	return ((fac[n] % p) * (modInverse(fac[n - r], p) % p)) % p;
 }
-int digitcount(int n, int b) // O(1)
-{
-	// n shouldn't have leading zeros
-	if (n == 0)
-		return 1;
-	else if (n < 0)
-		n *= -1;
-	int digits = floor(log10(n) / log10(b)) + 1;
-	return digits;
-}
 string allCombinations() // O(1) but will have to be called 2^n times making it O(2^n)
 {						 // reminder : a bitset keeps only set values stored
 	static int i = 0;	 // it contains values from right to left with 0 based indexing
@@ -248,7 +238,7 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 	vector<pair<int, int>> prime_pairs;		//it returns a vector of pair of prime number and its power
 	int count = 0;							// if getting TLE int 10^4 test cases, dont't use map, use vector of pairs that you return,										//  delete all the lines related to map.
 	if (n == 0)								// that way no need to clear the map 10^4 times, which may sometime cause TLE,
-		return prime_pairs;
+		return prime_pairs;					// IF THE NUMBER IS 1 IT RETURNS NOTHING, KEEP THAT IN MIND
 	else
 	{
 		while (n % 2 == 0)
@@ -532,5 +522,4 @@ int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout << nCr(4, 3, 100);
 }
