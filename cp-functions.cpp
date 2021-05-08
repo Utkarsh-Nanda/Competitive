@@ -11,22 +11,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define rep(i, j, k) for(int i = j; i <= k; i++)
+#define boost                         \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL)
+#define testcases \
+    int t;        \
+    cin >> t;     \
+    while (t--)
+#define rep(i, j, k) for (int i = j; i <= k; i++)
 #define pb push_back
 #define pf push_front
 #define mp make_pair
 #define pi 3.14159265358979323846
 #define mod 1000000007
 
+
 int32_t main()
 {
-    ios_base::sync_with_stdio(false); // remove it at the time of debugging
-	cin.tie(NULL);
-	cout.tie(NULL);
-    int t;
-    cin >> t;
-    while (t--)
-    {
+    boost;
+	testcases
+	{
 
 	}
 }	
@@ -61,7 +66,7 @@ void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(n)
 		}
 	}
 }
-int factor[10000000];
+int factor[1000000];
 int sieve_factor() // numbers with only 1 or 2 factors are prime numbers O(n) = nlog(n)
 {				   // change range acconding to the problem
 	memset(factor, 0, sizeof(factor));
@@ -90,14 +95,10 @@ int fact_mod(int n, int mo) // to calculate factorial modulo a number O(n) = n
 long long power(int x, int y, int p) // x raised to y modulo p in O(log(n))
 {
 	int res = 1; // Initialize result
-
 	while (y > 0)
 	{
-		// If y is odd, multiply x with result
 		if (y & 1)
 			res = (res * x) % p;
-
-		// n must be even now
 		y = y >> 1;		 // y = y/2
 		x = (x * x) % p; // Change x to x^2
 	}
@@ -518,8 +519,41 @@ string smaller_num(string one, string two) // O(n) = n(size of the smaller strin
 			return one;
 	}
 }
+vector<pair<int, int>> zero_one(string s)
+{
+    vector<pair<int, int>> temp;
+    char prev = s[0];
+    int count = 1;
+    if (s.size() == 1)
+        temp.push_back(make_pair(s[0] - '0', count));
+    else
+    {
+        for (int i = 1; i < s.size(); i++)
+        {
+            if (s[i] == '1' && prev == '0')
+            {
+                temp.push_back(make_pair(0, count));
+                count = 1;
+                prev = '1';
+            }
+            else if (s[i] == '0' && prev == '1')
+            {
+                temp.push_back(make_pair(1, count));
+                count = 1;
+                prev = '0';
+            }
+            else
+                count++;
+            if (i == s.size() - 1)
+                temp.push_back(make_pair(s[i] - '0', count));
+        }
+    }
+
+    return temp;
+}
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
+
 }
