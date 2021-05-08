@@ -519,41 +519,40 @@ string smaller_num(string one, string two) // O(n) = n(size of the smaller strin
 			return one;
 	}
 }
-vector<pair<int, int>> zero_one(string s)
-{
-    vector<pair<int, int>> temp;
-    char prev = s[0];
-    int count = 1;
-    if (s.size() == 1)
-        temp.push_back(make_pair(s[0] - '0', count));
-    else
-    {
-        for (int i = 1; i < s.size(); i++)
-        {
-            if (s[i] == '1' && prev == '0')
-            {
-                temp.push_back(make_pair(0, count));
-                count = 1;
-                prev = '1';
-            }
-            else if (s[i] == '0' && prev == '1')
-            {
-                temp.push_back(make_pair(1, count));
-                count = 1;
-                prev = '0';
-            }
-            else
-                count++;
-            if (i == s.size() - 1)
-                temp.push_back(make_pair(s[i] - '0', count));
-        }
-    }
+vector<pair<int, int>> zero_one(string s) // O(n) = n, n = length of the string.
+{										  // returns a vector of pair, containing alternatively 0's and 1's with their no of consecutive occurences
+	vector<pair<int, int>> temp;
+	char prev = s[0];
+	int count = 1;
+	if (s.size() == 1)
+		temp.push_back(make_pair(s[0] - '0', count));
+	else
+	{
+		for (int i = 1; i < s.size(); i++)
+		{
+			if (s[i] == '1' && prev == '0')
+			{
+				temp.push_back(make_pair(0, count));
+				count = 1;
+				prev = '1';
+			}
+			else if (s[i] == '0' && prev == '1')
+			{
+				temp.push_back(make_pair(1, count));
+				count = 1;
+				prev = '0';
+			}
+			else
+				count++;
+			if (i == s.size() - 1)
+				temp.push_back(make_pair(s[i] - '0', count));
+		}
+	}
 
-    return temp;
+	return temp;
 }
 int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-
 }
