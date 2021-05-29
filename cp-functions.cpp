@@ -26,7 +26,6 @@ using namespace std;
 #define pi 3.14159265358979323846
 #define mod 1000000007
 
-
 int32_t main()
 {
     boost;
@@ -102,7 +101,10 @@ long long power(int x, int y, int p) // x raised to y modulo p in O(log(n))
 		y = y >> 1;		 // y = y/2
 		x = (x * x) % p; // Change x to x^2
 	}
-	return res;
+	if (res < 0)
+        return res + p;
+    else
+        return res;
 }
 long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it uses logarithmic time to calculate power
 {
@@ -120,7 +122,10 @@ long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it
 		y = y >> 1;		 // y = y/2
 		x = (x * x) % p; // Change x to x^2
 	}
-	return res;
+	if (res < 0)
+        return res + p;
+    else
+        return res;
 }
 long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
 {										 // use in combination with modInverse funciton written just above
@@ -153,20 +158,19 @@ long long nPr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 	for (int i = 1; i <= n; i++)
 		fac[i] = (fac[i - 1] * i) % p;
 	int div1 = modInverse(fac[r], p);
-
 	return ((fac[n] % p) * (modInverse(fac[n - r], p) % p)) % p;
 }
-string allCombinations() // O(1) but will have to be called 2^n times making it O(2^n)
+string allCombinations(int n) // O(1) but will have to be called 2^n times making it O(2^n)
 {						 // reminder : a bitset keeps only set values stored
-	static int i = 0;	 // it contains values from right to left with 0 based indexing
-	bitset<25> c(i);
+	// static int i = 0;	 // it contains values from right to left with 0 based indexing
+	bitset<25> c(n);
 	string s;
 	bitset<25> d("1111111111111111111111111");
-	c = i;	   // this is the particular arrangement
+	c = n;	   // this is the particular arrangement
 	d = c ^ d; // xor operation of c with a string of 1's of proper length
 	s = c.to_string();
-	//	s = d.to_string(); // use this to return opposite
-	i++;
+	//	s = d.to_string(); // use this to return opposite i.e., to convert 1 to 0 and 0 to 1
+	// i++;
 	return s;
 }
 string Combinations(int r) // O(1) but will have to be called 2^n times making it O(2^n)
@@ -174,7 +178,7 @@ string Combinations(int r) // O(1) but will have to be called 2^n times making i
 						   // loop this nCr times to get all the answers
 	static int i = 0;
 	string s;
-	static bitset<5> c(0);
+	static bitset<10> c(0);
 	while (c.count() != r) // increment i till i has exactly r bits set
 	{
 		i++;
@@ -391,6 +395,19 @@ vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector
 	}
 	return v;
 }
+string numToString(int n, int base)
+{
+	string s;
+	int index = 0;
+	while (n)
+	{
+		s.push_back((char)(n % base) + '0');
+		index++;
+		n /= base;
+	}
+	reverse(s.begin(), s.end());
+	return s;
+}
 bool isBalanced(string exp) // O(n) = n(length of the string), tells whether a sequence of small brackets is balanced or not
 {
 	bool flag = true;
@@ -548,11 +565,9 @@ vector<pair<int, int>> zero_one(string s) // O(n) = n, n = length of the string.
 				temp.push_back(make_pair(s[i] - '0', count));
 		}
 	}
-
 	return temp;
 }
 int32_t main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cout << numToString(23476757883764637, 10);
 }
