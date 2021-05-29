@@ -567,6 +567,54 @@ vector<pair<int, int>> zero_one(string s) // O(n) = n, n = length of the string.
 	}
 	return temp;
 }
+void matrix_mul(int mat1[][3], int mat2[][3], int dim, int p) // it multiplies matrix A and B and store the result in A, modulo p O(n) = n^3, where n is dim
+{                                                             // define N(where 3 is written) one greater than dimension
+    int i, j, k;                                              // as it's the size of the matrix, with zero based indexing
+    int res[3][3];
+    for (i = 1; i <= dim; i++)
+    {
+        for (j = 1; j <= dim; j++)
+        {
+            res[i][j] = 0;
+            for (k = 1; k <= dim; k++)
+                res[i][j] = (res[i][j] + (mat1[i][k] * mat2[k][j]) % p) % p;
+        }
+    }
+
+    for (i = 1; i <= dim; i++)
+    {
+        for (j = 1; j <= dim; j++)
+        {
+            mat1[i][j] = res[i][j];
+        }
+    }
+}
+void matrix_exp(int res[][3], int n, int dim) // matrix exponentiation, use with matrix multiplication function just above, O(n) = log(n), n is the power
+{                                             // res is the base, n is the power, dim is the dimension of the matrix
+    res[1][1] = 0;                            // final result of matrix exponentiation is stored in res itself.
+    res[1][2] = 1, res[2][2] = 1, res[2][1] = 1;
+    int iden[3][3] = {{0, 0, 0}, {0, 1, 0}, {0, 0, 1}}; // define identity matrix according to the size of matrix in problem
+    while (n)
+    {
+        if (n % 2 == 0)
+        {
+            matrix_mul(res, res, 2, mod);
+            n /= 2;
+        }
+        else
+        {
+            matrix_mul(iden, res, 2, mod); // updating identity matrix by res
+            n--;
+        }
+    }
+    for (int i = 1; i <= dim; i++)
+    {
+        for (int j = 1; j <= dim; j++)
+        {
+            res[i][j] = iden[i][j];
+        }
+    }
+}
 int32_t main()
 {
 	cout << numToString(23476757883764637, 10);
