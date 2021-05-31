@@ -52,7 +52,7 @@ bool sortpair(pair<int, int> a, pair<int, int> b)
 using namespace std;
 int range = 10000000;
 int prime[10000000];
-void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(n)
+void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(log(n))
 {									 // change range according to the problem
 	memset(prime, 0, sizeof(prime)); // initializes all the values in array "prime" with 0
 	prime[1] = -1;
