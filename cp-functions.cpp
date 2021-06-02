@@ -102,9 +102,9 @@ long long power(int x, int y, int p) // x raised to y modulo p in O(log(n))
 		x = (x * x) % p; // Change x to x^2
 	}
 	if (res < 0)
-        return res + p;
-    else
-        return res;
+		return res + p;
+	else
+		return res;
 }
 long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it uses logarithmic time to calculate power
 {
@@ -123,9 +123,9 @@ long long modInverse(long long n, int p) // Returns n^(-1) mod p O(log(n)) as it
 		x = (x * x) % p; // Change x to x^2
 	}
 	if (res < 0)
-        return res + p;
-    else
-        return res;
+		return res + p;
+	else
+		return res;
 }
 long long nCr(long long n, int r, int p) // Returns nCr % p using Fermat's little theorem. O(n + log(p)) = O(n) u
 {										 // use in combination with modInverse funciton written just above
@@ -161,7 +161,7 @@ long long nPr(long long n, int r, int p) // Returns nCr % p using Fermat's littl
 	return ((fac[n] % p) * (modInverse(fac[n - r], p) % p)) % p;
 }
 string allCombinations(int n) // O(1) but will have to be called 2^n times making it O(2^n)
-{						 // reminder : a bitset keeps only set values stored
+{							  // reminder : a bitset keeps only set values stored
 	// static int i = 0;	 // it contains values from right to left with 0 based indexing
 	bitset<25> c(n);
 	string s;
@@ -437,65 +437,19 @@ bool is_pall(string x) // O(n) = n, checks whether a string is pallindrome or no
 	else
 		return false;
 }
-void rotate(int *ar, int size, int indexing, string dir)		 // O(n) = n, ar = array of which elements to rotate
-{																 // size = total size of the array
-	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
-	int ar2[size] = {0};										 // dir = direction to rotate the array, right or left
-
-	if (dir == "right") // it manipulates the string sent as parameter, thus doesn't return anything
-	{
-		for (int i = 1 + indexing; i <= size - 1; i++)
-			ar2[i] = ar[i - 1];
-	}
+void Rotate(string &s, int amt, string dir) // O(n) = n, rotates a string by the given amount, and in the direction mentioned as string in dir
+{											// O(n) = n, rotates a string by the given amount, and in the direction mentioned as string
+	if (dir == "left")						// input the amount as (amt % size)
+		rotate(s.begin(), s.begin() + amt, s.end());
 	else
-	{
-		for (int i = 1 + indexing; i <= size - 1; i++)
-			ar2[i - 1] = ar[i];
-	}
-	dir == "right" ? ar2[0 + indexing] = temp : ar2[size - 1] = temp;
-	for (int i = 0; i <= size - 1; i++)
-		ar[i] = ar2[i];
+		rotate(s.begin(), s.begin() + (s.size() - amt), s.end());
 }
-void rotate(vector<int> &ar, int size, int indexing, string dir) // O(n) = n, ar = array of which elements to rotate
-{																 // size = total size of the array
-	int temp = dir == "right" ? ar[size - 1] : ar[0 + indexing]; // indexing = indexing used in the array, 0 based or 1 based
-	vector<int> ar2(size);										 // dir = direction to rotate the array, right or left
-
-	if (dir == "right") // it manipulates the string sent as parameter, thus doesn't return anything
-	{
-		for (int i = 1 + indexing; i <= size - 1; i++)
-			ar2[i] = ar[i - 1];
-	}
+void Rotate(vector<int> &s, int amt, string dir) // O(n) = n, rotates a vector<int> elements by the given amount, and in the direction mentioned as string in dir
+{												 // O(n) = n, rotates a string by the given amount, and in the direction mentioned as string
+	if (dir == "left")							 // input the amount as (amt % size)
+		rotate(s.begin(), s.begin() + amt, s.end());
 	else
-	{
-		for (int i = 1 + indexing; i <= size - 1; i++)
-			ar2[i - 1] = ar[i];
-	}
-	dir == "right" ? ar2[0 + indexing] = temp : ar2[size - 1] = temp;
-	for (int i = 0; i <= size - 1; i++)
-		ar[i] = ar2[i];
-}
-string rotate(string ar, string dir) // O(n) = n, string ar = string to rotate, dir = direction to rotate
-{									 // returns rotated string
-	int size = ar.size();
-	char temp = dir == "right" ? ar[size - 1] : ar[0];
-	string ar2;
-	for (int i = 0; i < size; i++)
-	{
-		ar2 += '.';
-	}
-	if (dir == "right")
-	{
-		for (int i = 1; i <= size - 1; i++)
-			ar2[i] = ar[i - 1];
-	}
-	else
-	{
-		for (int i = 1; i <= size - 1; i++)
-			ar2[i - 1] = ar[i];
-	}
-	dir == "right" ? ar2[0] = temp : ar2[size - 1] = temp;
-	return ar2;
+		rotate(s.begin(), s.begin() + (s.size() - amt), s.end());
 }
 int pairing_fun(pair<int, int> a) // O(n) = 1, returns a unique integer for a pair of integer, safe to use for if both the integers are less than 10^7
 {								  // integers can be positive or negative
@@ -568,54 +522,53 @@ vector<pair<int, int>> zero_one(string s) // O(n) = n, n = length of the string.
 	return temp;
 }
 void matrix_mul(int mat1[][3], int mat2[][3], int dim, int p) // it multiplies matrix A and B and store the result in A, modulo p O(n) = n^3, where n is dim
-{                                                             // define N(where 3 is written) one greater than dimension
-    int i, j, k;                                              // as it's the size of the matrix, with zero based indexing
-    int res[3][3];
-    for (i = 1; i <= dim; i++)
-    {
-        for (j = 1; j <= dim; j++)
-        {
-            res[i][j] = 0;
-            for (k = 1; k <= dim; k++)
-                res[i][j] = (res[i][j] + (mat1[i][k] * mat2[k][j]) % p) % p;
-        }
-    }
+{															  // define N(where 3 is written) one greater than dimension
+	int i, j, k;											  // as it's the size of the matrix, with zero based indexing
+	int res[3][3];
+	for (i = 1; i <= dim; i++)
+	{
+		for (j = 1; j <= dim; j++)
+		{
+			res[i][j] = 0;
+			for (k = 1; k <= dim; k++)
+				res[i][j] = (res[i][j] + (mat1[i][k] * mat2[k][j]) % p) % p;
+		}
+	}
 
-    for (i = 1; i <= dim; i++)
-    {
-        for (j = 1; j <= dim; j++)
-        {
-            mat1[i][j] = res[i][j];
-        }
-    }
+	for (i = 1; i <= dim; i++)
+	{
+		for (j = 1; j <= dim; j++)
+		{
+			mat1[i][j] = res[i][j];
+		}
+	}
 }
 void matrix_exp(int res[][3], int n, int dim) // matrix exponentiation, use with matrix multiplication function just above, O(n) = log(n), n is the power
-{                                             // res is the base, n is the power, dim is the dimension of the matrix
-    res[1][1] = 0;                            // final result of matrix exponentiation is stored in res itself.
-    res[1][2] = 1, res[2][2] = 1, res[2][1] = 1;
-    int iden[3][3] = {{0, 0, 0}, {0, 1, 0}, {0, 0, 1}}; // define identity matrix according to the size of matrix in problem
-    while (n)
-    {
-        if (n % 2 == 0)
-        {
-            matrix_mul(res, res, 2, mod);
-            n /= 2;
-        }
-        else
-        {
-            matrix_mul(iden, res, 2, mod); // updating identity matrix by res
-            n--;
-        }
-    }
-    for (int i = 1; i <= dim; i++)
-    {
-        for (int j = 1; j <= dim; j++)
-        {
-            res[i][j] = iden[i][j];
-        }
-    }
+{											  // res is the base, n is the power, dim is the dimension of the matrix
+	res[1][1] = 0;							  // final result of matrix exponentiation is stored in res itself.
+	res[1][2] = 1, res[2][2] = 1, res[2][1] = 1;
+	int iden[3][3] = {{0, 0, 0}, {0, 1, 0}, {0, 0, 1}}; // define identity matrix according to the size of matrix in problem
+	while (n)
+	{
+		if (n % 2 == 0)
+		{
+			matrix_mul(res, res, 2, mod);
+			n /= 2;
+		}
+		else
+		{
+			matrix_mul(iden, res, 2, mod); // updating identity matrix by res
+			n--;
+		}
+	}
+	for (int i = 1; i <= dim; i++)
+	{
+		for (int j = 1; j <= dim; j++)
+		{
+			res[i][j] = iden[i][j];
+		}
+	}
 }
 int32_t main()
 {
-	cout << numToString(23476757883764637, 10);
 }
