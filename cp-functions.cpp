@@ -244,9 +244,9 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 	int count = 0;							// if getting TLE int 10^4 test cases, dont't use map, use vector of pairs that you return,										//  delete all the lines related to map.
 	if (n == 0)								// that way no need to clear the map 10^4 times, which may sometime cause TLE,
 		return prime_pairs;					// IF THE NUMBER IS 1 IT RETURNS NOTHING, KEEP THAT IN MIND
-	else
-	{
-		while (n % 2 == 0)
+	else									// Use it with sieve to better time complexity,
+	{										// so that we run the for loop only only for the prime numbers from 1 to sqrt(n)
+		while (n % 2 == 0)					// and not every value from 1 to sqrt(n)
 		{
 			count++;
 			n = n / 2;
@@ -256,7 +256,7 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 			prime_array[2] = count; // map line
 			prime_pairs.push_back(make_pair(2, count));
 		}
-		for (int i = 3; i <= sqrt(n); i = i + 2)
+		for (int i = 3; i <= sqrt(n); i = i + 2) // this loop we are talking about above
 		{
 			count = 0;
 			while (n % i == 0)
@@ -571,4 +571,7 @@ void matrix_exp(int res[][3], int n, int dim) // matrix exponentiation, use with
 }
 int32_t main()
 {
+	vector<int> v = num_in_diff_base(702, 27);
+	for (auto i : v)
+		cout << i << " ";
 }
