@@ -23,7 +23,6 @@ using namespace std;
 #define pb push_back
 #define pf push_front
 #define mp make_pair
-#define pi 3.14159265358979323846
 #define mod 1000000007
 
 int32_t main()
@@ -50,9 +49,8 @@ bool sortpair(pair<int, int> a, pair<int, int> b)
 #define int long long
 #define mod 1000000007
 using namespace std;
-int range = 10000000;
-int prime[10000000];
-void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(log(n))
+int prime[100001];
+void sieve(int range)				 // 0 means prime, -1 means non prime O(n) = nlog(log(n))
 {									 // change range according to the problem
 	memset(prime, 0, sizeof(prime)); // initializes all the values in array "prime" with 0
 	prime[1] = -1;
@@ -66,8 +64,8 @@ void sieve()						 // 0 means prime, -1 means non prime O(n) = nlog(log(n))
 	}
 }
 int factor[1000000];
-int sieve_factor() // numbers with only 1 or 2 factors are prime numbers O(n) = nlog(n)
-{				   // change range acconding to the problem
+int sieve_factor(int range) // numbers with only 1 or 2 factors are prime numbers O(n) = nlog(n)
+{							// change range acconding to the problem
 	memset(factor, 0, sizeof(factor));
 	for (int i = 1; i <= range; i++)
 	{
@@ -256,8 +254,11 @@ vector<pair<int, int>> prime_factors(int n) // as clear() function works in O(n)
 			prime_array[2] = count; // map line
 			prime_pairs.push_back(make_pair(2, count));
 		}
+		// for (auto i : primes) // uncomment this line if using with sieve for optimisation, and comment out the below line
 		for (int i = 3; i <= sqrt(n); i = i + 2) // this loop we are talking about above
 		{
+			if (i == 2)
+				continue;
 			count = 0;
 			while (n % i == 0)
 			{
@@ -567,6 +568,27 @@ void matrix_exp(int res[][3], int n, int dim) // matrix exponentiation, use with
 		{
 			res[i][j] = iden[i][j];
 		}
+	}
+}
+int lexo_compare(string s1, string s2) // O(n) = n, where n is minimum of size of s1 and s2
+{									   // returns 1 if s1 is lexicographically after s2, returns -1 if s1 is before s2, else return 0(both are equal).
+	if (s1 == s2)
+		return 0;
+	else
+	{
+		for (int i = 0; i <= min(s1.size(), s2.size()) - 1; i++)
+		{
+			if (s1[i] == s2[i])
+				continue;
+			if (s1[i] < s2[i])
+				return -1;
+			else if (s1[i] > s2[i])
+				return 1;
+		}
+		if (s1.size() < s2.size())
+			return -1;
+		else
+			return 1;
 	}
 }
 int32_t main()
