@@ -365,7 +365,7 @@ int sum_of_digits(int num) // O(n) = length of number, returns sum of digits of 
 	return sum;
 }
 vector<int> allPrime;
-void allPrimeFactors(int n) // O(n) = sqrt(n), vector allPrime contains all the factors of n
+void allFactors(int n) // O(n) = sqrt(n), vector allPrime contains all the factors of n
 {
 	// Note that this loop runs till square root
 	for (int i = 1; i <= sqrt(n); i++)
