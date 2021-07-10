@@ -44,6 +44,18 @@ bool sortpair(pair<int, int> a, pair<int, int> b)
 		return false;
 }
 
+For dfs on a 2D-grid:
+
+            // down right up left
+int dRow[] = { 0,  1,     0,  -1 };
+int dCol[] = { -1, 0,     1,   0 };
+
+// For Diagonals allowed
+
+            // down up left right up-right up-left down-right down-left
+int dRow[] = {  0,  0,  -1,   1,    1,       -1,       1,        -1}
+int dCol[] = {  -1, 1,  0,    0,    1,       1,       -1,        -1};
+
 */
 #include <bits/stdc++.h>
 #define int long long
@@ -396,7 +408,7 @@ vector<int> num_in_diff_base(int n, int base) // O(n) = log(n), returns a vector
 	}
 	return v;
 }
-string numToString(int n, int base)
+string numToString(int n, int base) // O(n) = log(n), length of the number in that base
 {
 	string s;
 	int index = 0;
