@@ -20,6 +20,7 @@ using namespace std;
     cin >> t;     \
     while (t--)
 #define rep(i, j, k) for (int i = j; i <= k; i++)
+#define repo(i, j, k) for (int i = j; i >= k; i--)
 #define pb push_back
 #define pf push_front
 #define mp make_pair
@@ -44,6 +45,20 @@ bool sortpair(pair<int, int> a, pair<int, int> b)
 		return false;
 }
 
+struct lexical_compare {
+	bool operator() (int a, int b) const {
+		return to_string(a) < to_string(b);
+	}
+};
+
+// write lexical_compare in the comparator place
+
+For ordered set
+// include <ext/pb_ds/assoc_container.hpp>
+// include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define ordered_set tree<int,null_type,less_equal<int>,rb_tree_tag,tree_order_statistics_node_update> // dont't define int as long long when using this
+
 For dfs on a 2D-grid:
 
             // down right up left
@@ -55,6 +70,14 @@ int dCol[] = { -1, 0,     1,   0 };
             // down up left right up-right up-left down-right down-left
 int dRow[] = {  0,  0,  -1,   1,    1,       -1,       1,        -1}
 int dCol[] = {  -1, 1,  0,    0,    1,       1,       -1,        -1};
+
+bool isValid(int row, int column) // isValid function for dfs, bfs on grid
+{
+    if (row <= n && row >= 1 && column <= m && column >= 1 && graph[row][column] != '#' && vis[row][column] == 0)
+        return true;
+    else
+        return false;
+}
 
 */
 #include <bits/stdc++.h>
@@ -605,7 +628,6 @@ int lexo_compare(string s1, string s2) // O(n) = n, where n is minimum of size o
 }
 int32_t main()
 {
-	vector<int> v = num_in_diff_base(702, 27);
-	for (auto i : v)
-		cout << i << " ";
+	int a = nCr(5, 3, mod);
+	cout << a;
 }

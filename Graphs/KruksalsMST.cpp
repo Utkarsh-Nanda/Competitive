@@ -32,7 +32,7 @@ int find(int a)
     int x = find(par[a]);
     return x;
 }
-void Union(int a, int b)
+void Union(int a, int b) // this ensures logn time complexity
 {
     if (siz[a] < siz[b])
     {

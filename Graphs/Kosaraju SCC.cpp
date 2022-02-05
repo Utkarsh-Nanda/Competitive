@@ -72,8 +72,7 @@ int main()
         rep(i, 1, n)
             vis[i] = 0;
 
-        REP(i, n)
-        if (vis[order[n - i]] == 0)
+        rep(i, 1, n) if (vis[order[n - i]] == 0)
         {
             SCC.clear();
             dfs1(order[n - i]);
