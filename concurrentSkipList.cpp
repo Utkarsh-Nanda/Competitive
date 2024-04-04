@@ -213,7 +213,7 @@ int main()
 
     deleteThread.join();
 
-    // Check if the deleted element is still present
+    // Check if the deleted element is still present f
     std::thread searchThread3([&skipList]()
                               {
         std::string value;
